@@ -2,49 +2,70 @@
 title: "Portfolio 1"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+> The aim of this first portfolio piece is to document my search process of relevant data for my topic. I have consistent interest in the topic of traumatic brain injuries and mental health issues. I hope to find data that can speak to this topic; however, this portfolio is to introduce my research process and decide on a data set for the rest of my inquires.   
 
+I will begin by loading the tidyverse packages that can assist with further analysis of any data set I find.
 ```{r load-packages, message=FALSE}
 library(tidyverse) 
 library(tidyr)
-data(fish_encounters)
+
 ```
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget nibh vel est aliquet iaculis at placerat sem. Aenean faucibus iaculis ultricies. Nullam consequat odio in ultricies ullamcorper. Etiam venenatis in est vitae ullamcorper. Nam vitae urna ut dolor rhoncus aliquet at vel neque. Quisque tristique leo finibus nisi interdum, sit amet tempor risus viverra. Donec mollis vulputate sodales. Nunc ornare, leo quis euismod eleifend, eros mi maximus felis, vel varius lacus dui eget nibh. Duis vitae nunc nisl. Donec accumsan aliquam elit, eu fringilla quam pulvinar eget.
+I started my search with the "Harvard Dataverse" database. In the search bar I began with the prompt "(traumatic brain injury) AND (mental health)". This search prompt yielded 2,040 results. An initial difficulty I stumbled across is that many of the data sets are restricted due to containing unique patient information. In order to carry on my search I had to filter my results to only include data sets that are set to public, and in doing so limited the results to 420. 
 
-Mauris in ligula mauris. Curabitur facilisis pharetra metus eget lobortis. In egestas nibh sit amet faucibus eleifend. Suspendisse imperdiet viverra blandit. Phasellus consectetur tincidunt eros eu facilisis. Quisque maximus, orci eget sodales aliquam, velit lorem semper dolor, nec convallis erat ipsum mattis velit. Pellentesque porttitor, mauris vitae aliquam mattis, metus nisl viverra turpis, vel convallis metus sapien et ex. Nunc consequat ipsum id dolor eleifend, sit amet semper eros sodales. Pellentesque consectetur, dui quis venenatis malesuada, nunc lorem lacinia libero, vitae malesuada dui arcu in augue. Aliquam id sagittis libero. Vestibulum aliquet sagittis libero, non posuere odio molestie ut. Curabitur lacus enim, viverra vel odio non, pretium efficitur elit. Mauris posuere efficitur interdum. Nunc sed bibendum turpis, quis fringilla velit. Phasellus eu lorem lobortis eros molestie laoreet.
+I initially explored a data set that was interesting to me that observes the relationship between childhood trauma and mentalization capacities and dissociative experiences. I was able to successfully open this data set in SPSS and observe the variables measured more closely. This data set consists of 101 participants and 448 variables that would be extremely helpful in observing a variety of inquires. However, I still want to continue my search. 
 
+Next, I examined a different database at "data.gov", and broadened my search to "concussions and mental health". So far, I came across a public data set for "Hospital Encounters for Behavioral Health". I was able to open a .csv file that contains variables such as sex, race, and visit reasons. After looking at this extensive data, I have decided to explore more in depth the summary of data of visits for behavioral health related issues. 
 
+I have downloaded the data set in SPSS, and imported a .sav file in Rstudio for the purposes of examining the data more closely. 
 
-```{r}
-# Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Species", y = "Number of Fish Encounters")
-  
+## Download and Import Data
+
+```{r loadpackage}
+ library(haven)
+ Hospital1 <- read_sav("~/Downloads/hospital-encounters-for-behavioral-health-4ua8pp8u/Hospital1.sav")
+glimpse(Hospital1)
 ```
 
+## Explanation of Variables
+In this data there are 9 variables:
+```{r variables}
+Hospital1["Year"]
+```
+The variable "Year" includes data for the year the hospital visit occurred, which includes the time frame of 2020-2022
 
-Sed mollis purus faucibus leo finibus, ut pharetra nibh elementum. Nulla id orci lorem. Mauris sollicitudin mi eget tellus vehicula, ut convallis lorem mollis. In blandit nulla diam, a malesuada sem volutpat interdum. Ut elementum elit at velit maximus, ac tempor odio porttitor. Suspendisse lobortis sollicitudin tortor, ut pharetra libero luctus a. Sed hendrerit faucibus metus. Sed rutrum purus vel pellentesque euismod.
-
-
-```{r}
-# Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Species", y = "Number of Fish Encounters")
-  
+```{r variablegeo}
+Hospital1["Geography"]
 ```
 
-Mauris placerat in velit a pharetra. Nulla viverra bibendum lectus, ut lobortis nibh. Aenean malesuada, orci vitae dictum placerat, enim justo aliquet leo, ac tincidunt augue ipsum et mi. Nullam in pharetra metus, nec molestie felis. Duis varius rhoncus pulvinar. Integer semper urna sed tellus rhoncus, vel suscipit odio iaculis. Mauris iaculis neque pellentesque ex convallis venenatis. Sed ultrices euismod fermentum. Ut feugiat risus at turpis tincidunt viverra.
+The "Geography" variable expresses where the data came from. 
 
-
-```{r}
-# Create a barplot of the number of fish encounters by species
-ggplot(data = fish_encounters, aes(x = station, y = seen)) +
-  geom_bar(stat = "identity") +
-  labs(x = "Species", y = "Number of Fish Encounters")
-  
+```{r variabledep}
+Hospital1["Pattype"]
 ```
 
-Donec sagittis suscipit orci in ultrices. Vivamus iaculis eleifend est et dictum. Fusce non urna at lacus dapibus tincidunt ac sed nibh. Donec luctus lectus elit, ac ultrices tortor mollis sit amet. Nulla finibus lacinia arcu. Proin sollicitudin non odio et pulvinar. Maecenas finibus faucibus finibus. Ut elementum metus velit, a sodales sapien commodo et. Vivamus pulvinar, sapien et porta cursus, elit est luctus nisi, eget fringilla odio diam et enim. Sed sodales suscipit bibendum. Morbi ut metus semper, laoreet felis sodales, consequat dolor.
+The variable "Pattype" describes the type of patient seen, either Emergency Department (ED) visit or inpatient.
+
+```{r variablecategory}
+Hospital1["Category"]
+```
+The variable category lays out the foundation for sex, age, race of patient, who paid for the visit, and category of visit such as a special mental health reason or another category.
+
+```{r variablecategorydesc}
+Hospital1["Cat_desc"]
+```
+
+The variable "Cat_desc" goes off of the previous category variable and specifies the category of the patient e.g., race, sex, age, etc.
+
+```{r variablediagnosis}
+Hospital1["Dxgroup"]
+```
+
+DX group specifies the reason for the visit for each patient and their specific diagnosis. 
+
+Then, the last 3 variables is count, total, and percentage of individuals per category (e.g., race, sex, Dxgroup, etc).
+
+## Next Steps
+In the next portfolio piece I will dive deeper into the breakdown of categories of behavioral health visits and the demographics that make up those categories. 
+
+
