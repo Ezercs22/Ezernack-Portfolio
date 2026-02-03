@@ -40,3 +40,7 @@ vignettes/*.pdf
 
 # Specific keeps
 !.gitkeep
+data-dictionary-behavioral-health-hospital-encounters-age-race-sex-expected-payer-statewide.xlsx
+datapackage.json
+hospital-encounters-for-behavioral-health.csv
+Hospital1.sav
