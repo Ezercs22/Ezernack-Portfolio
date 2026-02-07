@@ -2,4 +2,58 @@
 title: "Portfolio 2"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+> I will be examining more closely the data from the previous data set. For this section I am focused on inquiring about the relationship between the category of the patient and what type of diagnosis they received after a hospital visit. 
+
+### Preliminary Package Loading for Analysis
+
+```{r load-packages, message = FALSE}
+
+library(tidyverse) 
+devtools::install_github("rstudio-education/dsbox") 
+library(dsbox) 
+
+
+library(haven)
+Hospital1 <- read_sav("Hospital1.sav")
+View(Hospital1) 
+```
+
+### Age and Diagnosis
+
+For this analysis I will be examining the age range of the patient and their specific diagnosis. First I will look at the preview of my variables:
+
+```{r agexdiagnosis}
+Hospital1 %>% 
+  select(Category, Cat_desc, Dxgroup)
+
+```
+
+In order to grab my variables I will have to look specifically at the columns "Cat_desc", "Dxgroup", "Count", and "Category" to  create a subset of the data. I will then plot this data.
+
+```{r agefacet}
+
+Hage <- Hospital1[, c("Category", "Cat_desc", "Dxgroup", "Count")]
+
+Age <- Hage %>% filter(Category == "Age")
+        Age %>% ggplot(mapping = aes(x= Cat_desc, y = Count)) + geom_point() + facet_grid(~ Dxgroup)
+
+```
+
+This plot is not very represenative of the nuances of the data so I will try faceting with the categorical variable of "Dxgroup"
+
+```{r agefacet2}
+
+        Age %>% ggplot(mapping = aes(x= Cat_desc, y = Count, fill = Dxgroup)) + geom_point() + facet_wrap(~ Dxgroup, nrow = 4)
+
+```
+
+This new graph is more organized by diagnosis group so that I can clearly visualize where might an age range fall within a diagnosis. However, graphing using points is not helpful in clearly indicating the spread as the data. Next, I will use a bar chart to visualize this data more clearly. 
+
+```{r agehistofacet3}
+
+ Age %>% ggplot(mapping = aes(x=Dxgroup, fill= Cat_desc)) + geom_bar() 
+
+```
+
+I believe the underlying issue in trying to visualize the data is due to  the original data set itself. The way the data in the Hospital file is organized is that specific age ranges are in the rows and not columns. After going through this process and understanding the data more, I realize I need to expend more energy first by manipulating the data set. The reason for this is so that specific age range columns map to rows of data such as a patients diagnosis; in doing that manipulation I would then be able to see the relationship between age range and diagnosis. I will try to solve this issue in the next portfolio piece. 
+

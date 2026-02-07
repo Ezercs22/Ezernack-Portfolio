@@ -23,7 +23,7 @@ I have downloaded the data set in SPSS, and imported a .sav file in Rstudio for 
 
 ```{r loadpackage}
  library(haven)
- Hospital1 <- read_sav("~/Downloads/hospital-encounters-for-behavioral-health-4ua8pp8u/Hospital1.sav")
+ Hospital1 <- read_sav("Hospital1.sav")
 glimpse(Hospital1)
 ```
 
