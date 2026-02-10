@@ -9,13 +9,13 @@ title: "Portfolio 2"
 ```{r load-packages, message = FALSE}
 
 library(tidyverse) 
-devtools::install_github("rstudio-education/dsbox") 
+#devtools::install_github("rstudio-education/dsbox") 
 library(dsbox) 
 
 
 library(haven)
 Hospital1 <- read_sav("Hospital1.sav")
-View(Hospital1) 
+#View(Hospital1) 
 ```
 
 ### Age and Diagnosis

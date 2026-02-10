@@ -13,7 +13,7 @@
 
 <title>Portfolio 2</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -141,11 +141,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -174,8 +178,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -183,16 +187,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -299,12 +296,76 @@ $(document).ready(function () {
 
 
 <blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
+<p>In this portfolio piece I will be examining more closely the data
+from the previous data set. For this section I am focused on inquiring
+about the relationship between the category of the patient and what type
+of diagnosis they received after a hospital visit.</p>
 </blockquote>
+<div id="preliminary-package-loading-for-analysis"
+class="section level3">
+<h3>Preliminary Package Loading for Analysis</h3>
+<pre class="r"><code>library(tidyverse) 
+#devtools::install_github(&quot;rstudio-education/dsbox&quot;) 
+library(dsbox) 
+
+
+library(haven)
+Hospital1 &lt;- read_sav(&quot;Hospital1.sav&quot;)
+#View(Hospital1) </code></pre>
+</div>
+<div id="age-and-diagnosis" class="section level3">
+<h3>Age and Diagnosis</h3>
+<p>For this analysis I will be examining the age range of the patient
+and their specific diagnosis. First I will look at the preview of my
+variables:</p>
+<pre class="r"><code>Hospital1 %&gt;% 
+  select(Category, Cat_desc, Dxgroup)</code></pre>
+<pre><code>## # A tibble: 522 × 3
+##    Category    Cat_desc       Dxgroup                
+##    &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;                  
+##  1 DX Category All Discharges All Other Diagnoses    
+##  2 DX Category All Discharges Co-Occuring Disorders  
+##  3 DX Category All Discharges Mental Health Disorders
+##  4 DX Category All Discharges Substance Use Disorders
+##  5 Sex         Female         All Other Diagnoses    
+##  6 Sex         Female         Co-Occuring Disorders  
+##  7 Sex         Female         Mental Health Disorders
+##  8 Sex         Female         Substance Use Disorders
+##  9 Sex         Male           All Other Diagnoses    
+## 10 Sex         Male           Co-Occuring Disorders  
+## # ℹ 512 more rows</code></pre>
+<p>In order to grab my variables I will have to look specifically at the
+columns “Cat_desc”, “Dxgroup”, “Count”, and “Category” to create a
+subset of the data that includes only age, and not including race,
+payer, and sex. I will then plot this data.</p>
+<pre class="r"><code>Hage &lt;- Hospital1[, c(&quot;Category&quot;, &quot;Cat_desc&quot;, &quot;Dxgroup&quot;, &quot;Count&quot;)]
+
+Age &lt;- Hage %&gt;% filter(Category == &quot;Age&quot;)
+        Age %&gt;% ggplot(mapping = aes(x= Cat_desc, y = Count)) + xlab( &quot;Age&quot;) + geom_point() + facet_grid(~ Dxgroup) + ylab(&quot;Number of Patients&quot;) </code></pre>
+<p><img src="p02_files/figure-html/agefacet-1.png" alt="" width="672" /></p>
+<p>This plot is not very representative of the nuances of the data and
+the azis axis is unclear, so I will try faceting with the categorical
+variable of “Dxgroup”</p>
+<pre class="r"><code>        Age %&gt;% ggplot(mapping = aes(x= Cat_desc, y = Count, fill = Dxgroup)) + geom_point() + facet_wrap(~ Dxgroup, nrow = 4)</code></pre>
+<p><img src="p02_files/figure-html/agefacet2-1.png" alt="" width="672" /></p>
+<p>This new graph is more organized by diagnosis group so that I can
+clearly visualize where might an age range fall within a diagnosis.
+However, graphing using points is not helpful in clearly indicating the
+spread as the data. Next, I will use a bar chart to visualize this data
+more clearly.</p>
+<pre class="r"><code> Age %&gt;% ggplot(mapping = aes(x=Dxgroup, fill= Cat_desc)) + geom_bar() + xlab(&quot;Diagnosis Category&quot;) + ylab(&quot;Number of Patients&quot;)</code></pre>
+<p><img src="p02_files/figure-html/agehistofacet3-1.png" alt="" width="672" /></p>
+<p>After trying out the bar plot I believe the underlying issue in
+trying to visualize the data is due to the original data set itself. The
+way the data in the Hospital file is organized is that specific age
+ranges are in the rows and not columns. After going through this process
+and understanding the data more, I realize I need to expend more energy
+first by manipulating the data set. The reason for this is so that
+specific age range columns map to rows of data such as a patients
+diagnosis; in doing that manipulation I would then be able to see the
+relationship between age range and diagnosis. I will try to solve this
+issue in the next portfolio piece.</p>
+</div>
 
 
 
