@@ -3,3 +3,63 @@ title: "Portfolio 3"
 ---
 
 > The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+
+```{r loadpackages}
+
+
+# Option 2: Read directly from GitHub
+
+movies <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/movies.csv')
+shows <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/shows.csv')
+
+```
+
+```{r load-packages, message = FALSE}
+
+library(tidyverse) 
+devtools::install_github("rstudio-education/dsbox") 
+library(dsbox) 
+
+```
+
+```{r mostviewed}
+movies %>% arrange(desc(hours_viewed)) %>% select(title, hours_viewed)
+
+```
+
+Based on sorting movies from most watched in hours, the top 5 movies on Netflix are: Back in Action, Leave the World Behind, Rebel Ridge, and Carry-On.
+
+Next I am curious to see if these top 5 movies are also available globally?
+
+```{r mostglobal}
+movies %>% arrange(desc(hours_viewed)) %>% select(title, hours_viewed, available_globally)
+
+```
+
+For the top 5 movies they are all available globally. This makes a bit of sense due to more outreach to other countries, these movies have many more chances to increase the time people watch them. 
+
+Still going off of movies in descending order, I am curious of the release date is for the movies. That is, are the movies with more hours streamed more recent, or just the classics?
+
+```{r mostviewedgraph}
+movies %>% arrange(desc(hours_viewed)) %>% ggplot(aes(x=release_date, y= hours_viewed)) + geom_point()
+
+```
+
+According to this graph, the movies that came out recently in 2025 have a very large amount of hours streamed in comparison to earlier years. Based off this graph, it is clear that hours viewed goes up for the more recent movies made. 
+
+Now lets look at the same distribution, but with the movies that are available globally. In the following plot I will color in points as red if the movie is not available globally. I will color the points in green if the movie is available globally. 
+
+```{r graphglobal}
+movies %>% arrange(desc(hours_viewed)) %>% ggplot(aes(x=release_date, y= hours_viewed, color = available_globally)) + geom_point() + labs(title = "Most Watched Movies", subtitle = "Distinguished by global availability",x= "Release Date", y = "Hours Viewed") + scale_color_manual(values = c("No" = "red", "Yes" = "green"))
+
+```
+
+Based on this plot, it is still very obvious that the movies that are most watched are also the ones that are available globally. However it is important to note there are a few red dots that depict a few movies in 2025 that are not available globally, yet they are still highly streamed. Let's try to take a look at what movies these cases are!
+
+```{r mostglobalextreme}
+movies %>% mutate(newmovies = (filter(release_date >= "2025-01-01"))) %>% arrange(desc(hours_viewed)) %>%  ggplot(aes(x = release_date, y = hours_viewed)) + geom_point() + facet_grid(~available_globally) 
+##+ geom_text(aes(label = title), position = "dodge")
+
+
+```
+
