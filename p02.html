@@ -11,7 +11,7 @@
 
 
 
-<title>Portfolio 4</title>
+<title>Portfolio 2</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -290,39 +290,81 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Portfolio 4</h1>
+<h1 class="title toc-ignore">Portfolio 2</h1>
 
 </div>
 
 
 <blockquote>
-<p>For this portfolio piece I will create a “stretch exercise” for the
-Global Plastic Waste Lab. The purpose of this stretch exercise is to
-take a step further to directly engage students in critically thinking
-about presented data. I will be pulling from the same data set that was
-used in Module 2.</p>
+<p>In this portfolio piece I will be examining more closely the data
+from the previous data set. For this section I am focused on inquiring
+about the relationship between the category of the patient and what type
+of diagnosis they received after a hospital visit.</p>
 </blockquote>
-<div id="load-packages-and-file" class="section level2">
-<h2>Load Packages and File</h2>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<ol style="list-style-type: decimal">
-<li><p>For the first exercise I want you to take another look at the
-current variables in the data set. Which variables in the data set
-describe wealth of a country and mismanaged waste measured in
-Tonnes?</p></li>
-<li><p>In the previous steps of this lab we asked you visualize the
-relationship between Coastal proportion population and plastic waste per
-capita. For this step, propose a research question based on the
-variables you identified in question 1.</p></li>
-<li><p>Propose a hypothesis to your research question from step
-2.</p></li>
-<li><p>At this point you should have a research question and a
-hypothesis guided by your variables, now it is time to visualize! Your
-plot should include the following requirements: calculate a summary
-statistic for each country to add as a new variable that you will use in
-your visualization; correct labeling of x and y axis with an appropriate
-title; implement faceting within your visualization.</p></li>
-</ol>
+<div id="preliminary-package-loading-for-analysis"
+class="section level3">
+<h3>Preliminary Package Loading for Analysis</h3>
+<pre class="r"><code>library(tidyverse) 
+#devtools::install_github(&quot;rstudio-education/dsbox&quot;) 
+library(dsbox) 
+
+
+library(haven)
+Hospital1 &lt;- read_sav(&quot;Hospital1.sav&quot;)
+#View(Hospital1) </code></pre>
+</div>
+<div id="age-and-diagnosis" class="section level3">
+<h3>Age and Diagnosis</h3>
+<p>For this analysis I will be examining the age range of the patient
+and their specific diagnosis. First I will look at the preview of my
+variables:</p>
+<pre class="r"><code>Hospital1 %&gt;% 
+  select(Category, Cat_desc, Dxgroup)</code></pre>
+<pre><code>## # A tibble: 522 × 3
+##    Category    Cat_desc       Dxgroup                
+##    &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;                  
+##  1 DX Category All Discharges All Other Diagnoses    
+##  2 DX Category All Discharges Co-Occuring Disorders  
+##  3 DX Category All Discharges Mental Health Disorders
+##  4 DX Category All Discharges Substance Use Disorders
+##  5 Sex         Female         All Other Diagnoses    
+##  6 Sex         Female         Co-Occuring Disorders  
+##  7 Sex         Female         Mental Health Disorders
+##  8 Sex         Female         Substance Use Disorders
+##  9 Sex         Male           All Other Diagnoses    
+## 10 Sex         Male           Co-Occuring Disorders  
+## # ℹ 512 more rows</code></pre>
+<p>In order to grab my variables I will have to look specifically at the
+columns “Cat_desc”, “Dxgroup”, “Count”, and “Category” to create a
+subset of the data that includes only age, and not including race,
+payer, and sex. I will then plot this data.</p>
+<pre class="r"><code>Hage &lt;- Hospital1[, c(&quot;Category&quot;, &quot;Cat_desc&quot;, &quot;Dxgroup&quot;, &quot;Count&quot;)]
+
+Age &lt;- Hage %&gt;% filter(Category == &quot;Age&quot;)
+        Age %&gt;% ggplot(mapping = aes(x= Cat_desc, y = Count)) + xlab( &quot;Age&quot;) + geom_point() + facet_grid(~ Dxgroup) + ylab(&quot;Number of Patients&quot;) </code></pre>
+<p><img src="p02_files/figure-html/agefacet-1.png" alt="" width="672" /></p>
+<p>This plot is not very representative of the nuances of the data and
+the azis axis is unclear, so I will try faceting with the categorical
+variable of “Dxgroup”</p>
+<pre class="r"><code>        Age %&gt;% ggplot(mapping = aes(x= Cat_desc, y = Count, fill = Dxgroup)) + geom_point() + facet_wrap(~ Dxgroup, nrow = 4)</code></pre>
+<p><img src="p02_files/figure-html/agefacet2-1.png" alt="" width="672" /></p>
+<p>This new graph is more organized by diagnosis group so that I can
+clearly visualize where might an age range fall within a diagnosis.
+However, graphing using points is not helpful in clearly indicating the
+spread as the data. Next, I will use a bar chart to visualize this data
+more clearly.</p>
+<pre class="r"><code> Age %&gt;% ggplot(mapping = aes(x=Dxgroup, fill= Cat_desc)) + geom_bar() + xlab(&quot;Diagnosis Category&quot;) + ylab(&quot;Number of Patients&quot;)</code></pre>
+<p><img src="p02_files/figure-html/agehistofacet3-1.png" alt="" width="672" /></p>
+<p>After trying out the bar plot I believe the underlying issue in
+trying to visualize the data is due to the original data set itself. The
+way the data in the Hospital file is organized is that specific age
+ranges are in the rows and not columns. After going through this process
+and understanding the data more, I realize I need to expend more energy
+first by manipulating the data set. The reason for this is so that
+specific age range columns map to rows of data such as a patients
+diagnosis; in doing that manipulation I would then be able to see the
+relationship between age range and diagnosis. I will try to solve this
+issue in the next portfolio piece.</p>
 </div>
 
 

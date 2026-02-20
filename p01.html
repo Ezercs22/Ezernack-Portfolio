@@ -11,7 +11,7 @@
 
 
 
-<title>Portfolio 4</title>
+<title>Portfolio 1</title>
 
 <script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -290,39 +290,176 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Portfolio 4</h1>
+<h1 class="title toc-ignore">Portfolio 1</h1>
 
 </div>
 
 
 <blockquote>
-<p>For this portfolio piece I will create a “stretch exercise” for the
-Global Plastic Waste Lab. The purpose of this stretch exercise is to
-take a step further to directly engage students in critically thinking
-about presented data. I will be pulling from the same data set that was
-used in Module 2.</p>
+<p>The aim of this first portfolio piece is to document my search
+process of relevant data for my topic. I have consistent interest in the
+topic of traumatic brain injuries and mental health issues. I hope to
+find data that can speak to this topic; however, this portfolio is to
+introduce my research process and decide on a data set for the rest of
+my inquires.</p>
 </blockquote>
-<div id="load-packages-and-file" class="section level2">
-<h2>Load Packages and File</h2>
-<pre class="r"><code>library(tidyverse)</code></pre>
-<ol style="list-style-type: decimal">
-<li><p>For the first exercise I want you to take another look at the
-current variables in the data set. Which variables in the data set
-describe wealth of a country and mismanaged waste measured in
-Tonnes?</p></li>
-<li><p>In the previous steps of this lab we asked you visualize the
-relationship between Coastal proportion population and plastic waste per
-capita. For this step, propose a research question based on the
-variables you identified in question 1.</p></li>
-<li><p>Propose a hypothesis to your research question from step
-2.</p></li>
-<li><p>At this point you should have a research question and a
-hypothesis guided by your variables, now it is time to visualize! Your
-plot should include the following requirements: calculate a summary
-statistic for each country to add as a new variable that you will use in
-your visualization; correct labeling of x and y axis with an appropriate
-title; implement faceting within your visualization.</p></li>
-</ol>
+<p>I will begin by loading the tidyverse packages that can assist with
+further analysis of any data set I find.</p>
+<pre class="r"><code>library(tidyverse) 
+library(tidyr)</code></pre>
+<p>I started my search with the “Harvard Dataverse” database. In the
+search bar I began with the prompt “(traumatic brain injury) AND (mental
+health)”. This search prompt yielded 2,040 results. An initial
+difficulty I stumbled across is that many of the data sets are
+restricted due to containing unique patient information. In order to
+carry on my search I had to filter my results to only include data sets
+that are set to public, and in doing so limited the results to 420.</p>
+<p>I initially explored a data set that was interesting to me that
+observes the relationship between childhood trauma and mentalization
+capacities and dissociative experiences. I was able to successfully open
+this data set in SPSS and observe the variables measured more closely.
+This data set consists of 101 participants and 448 variables that would
+be extremely helpful in observing a variety of inquires. However, I
+still want to continue my search.</p>
+<p>Next, I examined a different database at “data.gov”, and broadened my
+search to “concussions and mental health”. So far, I came across a
+public data set for “Hospital Encounters for Behavioral Health”. I was
+able to open a .csv file that contains variables such as sex, race, and
+visit reasons. After looking at this extensive data, I have decided to
+explore more in depth the summary of data of visits for behavioral
+health related issues.</p>
+<p>I have downloaded the data set in SPSS, and imported a .sav file in
+Rstudio for the purposes of examining the data more closely.</p>
+<div id="download-and-import-data" class="section level2">
+<h2>Download and Import Data</h2>
+<pre class="r"><code> library(haven)
+ Hospital1 &lt;- read_sav(&quot;Hospital1.sav&quot;)
+glimpse(Hospital1)</code></pre>
+<pre><code>## Rows: 522
+## Columns: 9
+## $ Year      &lt;dbl&gt; 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, 2020, …
+## $ Geography &lt;chr&gt; &quot;Statewide&quot;, &quot;Statewide&quot;, &quot;Statewide&quot;, &quot;Statewide&quot;, &quot;Statewi…
+## $ Pattype   &lt;chr&gt; &quot;Inpatient&quot;, &quot;Inpatient&quot;, &quot;Inpatient&quot;, &quot;Inpatient&quot;, &quot;Inpatie…
+## $ Category  &lt;chr&gt; &quot;DX Category&quot;, &quot;DX Category&quot;, &quot;DX Category&quot;, &quot;DX Category&quot;, …
+## $ Cat_desc  &lt;chr&gt; &quot;All Discharges&quot;, &quot;All Discharges&quot;, &quot;All Discharges&quot;, &quot;All D…
+## $ Dxgroup   &lt;chr&gt; &quot;All Other Diagnoses&quot;, &quot;Co-Occuring Disorders&quot;, &quot;Mental Heal…
+## $ Count     &lt;dbl&gt; 2408622, 242537, 552736, 240637, 1358168, 100688, 346219, 69…
+## $ Total     &lt;dbl&gt; 3444532, 3444532, 3444532, 3444532, 1874686, 1874686, 187468…
+## $ Percent   &lt;dbl&gt; 0.69925958, 0.07041218, 0.16046766, 0.06986058, 0.72447759, …</code></pre>
+</div>
+<div id="explanation-of-variables" class="section level2">
+<h2>Explanation of Variables</h2>
+<p>In this data there are 9 variables:</p>
+<pre class="r"><code>Hospital1[&quot;Year&quot;]</code></pre>
+<pre><code>## # A tibble: 522 × 1
+##     Year
+##    &lt;dbl&gt;
+##  1  2020
+##  2  2020
+##  3  2020
+##  4  2020
+##  5  2020
+##  6  2020
+##  7  2020
+##  8  2020
+##  9  2020
+## 10  2020
+## # ℹ 512 more rows</code></pre>
+<p>The variable “Year” includes data for the year the hospital visit
+occurred, which includes the time frame of 2020-2022</p>
+<pre class="r"><code>Hospital1[&quot;Geography&quot;]</code></pre>
+<pre><code>## # A tibble: 522 × 1
+##    Geography
+##    &lt;chr&gt;    
+##  1 Statewide
+##  2 Statewide
+##  3 Statewide
+##  4 Statewide
+##  5 Statewide
+##  6 Statewide
+##  7 Statewide
+##  8 Statewide
+##  9 Statewide
+## 10 Statewide
+## # ℹ 512 more rows</code></pre>
+<p>The “Geography” variable expresses where the data came from.</p>
+<pre class="r"><code>Hospital1[&quot;Pattype&quot;]</code></pre>
+<pre><code>## # A tibble: 522 × 1
+##    Pattype  
+##    &lt;chr&gt;    
+##  1 Inpatient
+##  2 Inpatient
+##  3 Inpatient
+##  4 Inpatient
+##  5 Inpatient
+##  6 Inpatient
+##  7 Inpatient
+##  8 Inpatient
+##  9 Inpatient
+## 10 Inpatient
+## # ℹ 512 more rows</code></pre>
+<p>The variable “Pattype” describes the type of patient seen, either
+Emergency Department (ED) visit or inpatient.</p>
+<pre class="r"><code>Hospital1[&quot;Category&quot;]</code></pre>
+<pre><code>## # A tibble: 522 × 1
+##    Category   
+##    &lt;chr&gt;      
+##  1 DX Category
+##  2 DX Category
+##  3 DX Category
+##  4 DX Category
+##  5 Sex        
+##  6 Sex        
+##  7 Sex        
+##  8 Sex        
+##  9 Sex        
+## 10 Sex        
+## # ℹ 512 more rows</code></pre>
+<p>The variable category lays out the foundation for sex, age, race of
+patient, who paid for the visit, and category of visit such as a special
+mental health reason or another category.</p>
+<pre class="r"><code>Hospital1[&quot;Cat_desc&quot;]</code></pre>
+<pre><code>## # A tibble: 522 × 1
+##    Cat_desc      
+##    &lt;chr&gt;         
+##  1 All Discharges
+##  2 All Discharges
+##  3 All Discharges
+##  4 All Discharges
+##  5 Female        
+##  6 Female        
+##  7 Female        
+##  8 Female        
+##  9 Male          
+## 10 Male          
+## # ℹ 512 more rows</code></pre>
+<p>The variable “Cat_desc” goes off of the previous category variable
+and specifies the category of the patient e.g., race, sex, age, etc.</p>
+<pre class="r"><code>Hospital1[&quot;Dxgroup&quot;]</code></pre>
+<pre><code>## # A tibble: 522 × 1
+##    Dxgroup                
+##    &lt;chr&gt;                  
+##  1 All Other Diagnoses    
+##  2 Co-Occuring Disorders  
+##  3 Mental Health Disorders
+##  4 Substance Use Disorders
+##  5 All Other Diagnoses    
+##  6 Co-Occuring Disorders  
+##  7 Mental Health Disorders
+##  8 Substance Use Disorders
+##  9 All Other Diagnoses    
+## 10 Co-Occuring Disorders  
+## # ℹ 512 more rows</code></pre>
+<p>DX group specifies the reason for the visit for each patient and
+their specific diagnosis.</p>
+<p>Then, the last 3 variables is count, total, and percentage of
+individuals per category (e.g., race, sex, Dxgroup, etc).</p>
+</div>
+<div id="next-steps" class="section level2">
+<h2>Next Steps</h2>
+<p>In the next portfolio piece I will dive deeper into the breakdown of
+categories of behavioral health visits and the demographics that make up
+those categories.</p>
 </div>
 
 

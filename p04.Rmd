@@ -2,4 +2,35 @@
 title: "Portfolio 4"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+> For this portfolio piece I will create a "stretch exercise" for the Global Plastic Waste Lab. The purpose of this stretch exercise is to take a step further to directly engage students in  thinking critically about presented data. I will be pulling from the same data set that was used in Module 2. 
+
+## Load Packages and File
+``` {r loadpack, message = FALSE}
+library(tidyverse)
+```
+
+First I will present the following questions to be included in the stretch exercise for students. 
+
+## Stretch Activity 
+1. For the first exercise I want you to take another look at the current variables in the data set. Which variables in the data set describe wealth of a country and mismanaged waste measured in Tonnes?
+
+2. In the previous steps of this lab we asked you visualize the relationship between Coastal proportion population and plastic waste per capita. For this step, propose a research question based on the variables you identified in question 1.
+
+3. Propose a hypothesis to your research question from step 2.
+
+4. At this point you should have a research question and a hypothesis guided by your variables, now it is time to visualize! Your plot should include the following requirements: calculate a summary statistic for each country to add as a new variable that you will use in your visualization; correct labeling of x and y axis with an appropriate title; implement faceting within your visualization. 
+
+5. The last step of this activity is to respond to your answer in question 3. How does the graph speak to your original hypothesis? What conclusions can be drawn from your finished facet graph?
+
+
+## Breakdowns of goals and intended purposes
+
+1. Question 1 is directed toward letting students gain familiarity with variables that were not used within the original exercises of Lab 2. The correct answer to this question is "gdp_per_cap and mismanaged_plastic_waste". 
+
+2. Question 2 is intended to allow students to draw possible questions they could ask when given two variables. I believe this is a step further than what they were asked to do in the original lab by giving less direction, which allows them to use their prior knowledge or personal interests. The answer to this question could look something along the lines of "How does wealth of a country relate to the output of mismanaged plastic waste?"
+
+3. Question 3 is pretty straightforward, but my intended goal was to give students the opportunity to think about the data more intently. Therefore, I expect students to give some thought to their proposed research question and state a hypothesis that could be, "The countries that are more wealthy will have greater amounts of mismanaged plastic waste than the less wealthy countries." 
+
+4. Question 4 brings everything together: creating a plot based off of the students formed research question. I include certain requirements in this step to make sure that their visualization of data aligns with the original goals of the assignment, but with a stretch. This question ensures that the student is now directly involved in the decision-making process from the bottom up. The requirements ensure students demonstrate their comprehensive skill set by identifying how the relationship between the variables  prompt faceting by country, utilizing their previous familiarity with calculating proportions using the mutate() function, and by reiterating the importance an organized graph with the aes() function. An example graph and code is shown below.
+
+5. This step emphasizes the final step after visualization, interpretation of graphs. This step ensures that the student can draw conclusions from graphs and not just the code behind it. 

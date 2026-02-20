@@ -46,7 +46,7 @@ For the top 5 movies they are all available globally. This makes sense due to mo
 Still going off of movies in descending order, I am curious of the release date for the most watched movies. That is, are the movies with more hours streamed more recent, or just the classics released earlier?
 
 ```{r mostviewedgraph}
-movies %>% arrange(desc(hours_viewed)) %>% ggplot(aes(x=release_date, y= hours_viewed)) + geom_point()
+movies %>% arrange(desc(hours_viewed)) %>% ggplot(aes(x=release_date, y= hours_viewed)) + geom_point() + labs(title = "Most Watched Movies by Date", x= "Release Date", y = "Hours Viewed")
 
 ```
 
