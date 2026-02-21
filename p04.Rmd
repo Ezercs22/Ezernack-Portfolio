@@ -4,10 +4,6 @@ title: "Portfolio 4"
 
 > For this portfolio piece I will create a "stretch exercise" for the Global Plastic Waste Lab. The purpose of this stretch exercise is to take a step further to directly engage students in  thinking critically about presented data. I will be pulling from the same data set that was used in Module 2. 
 
-## Load Packages and File
-``` {r loadpack, message = FALSE}
-library(tidyverse)
-```
 
 First I will present the following questions to be included in the stretch exercise for students. 
 
@@ -29,8 +25,8 @@ First I will present the following questions to be included in the stretch exerc
 
 2. Question 2 is intended to allow students to draw possible questions they could ask when given two variables. I believe this is a step further than what they were asked to do in the original lab by giving less direction, which allows them to use their prior knowledge or personal interests. The answer to this question could look something along the lines of "How does wealth of a country relate to the output of mismanaged plastic waste?"
 
-3. Question 3 is pretty straightforward, but my intended goal was to give students the opportunity to think about the data more intently. Therefore, I expect students to give some thought to their proposed research question and state a hypothesis that could be, "The countries that are more wealthy will have greater amounts of mismanaged plastic waste than the less wealthy countries." 
+3. Question 3 is pretty straightforward, but my intended goal was to give students the opportunity to think about the data more intently. Therefore, I expect students to give some thought to their proposed research question and state a hypothesis that could be, "The nations that are more wealthy will have greater amounts of mismanaged plastic waste than the less wealthy nations" 
 
-4. Question 4 brings everything together: creating a plot based off of the students formed research question. I include certain requirements in this step to make sure that their visualization of data aligns with the original goals of the assignment, but with a stretch. This question ensures that the student is now directly involved in the decision-making process from the bottom up. The requirements ensure students demonstrate their comprehensive skill set by identifying how the relationship between the variables  prompt faceting by country, utilizing their previous familiarity with calculating proportions using the mutate() function, and by reiterating the importance an organized graph with the aes() function. An example graph and code is shown below.
+4. Question 4 brings everything together: creating a plot based off of the students formed research question. I include certain requirements in this step to make sure that their visualization of data aligns with the original goals of the assignment, but with a stretch. This question ensures that the student is now directly involved in the decision-making process from the bottom up. The requirements ensure students demonstrate their comprehensive skill set by identifying how the relationship between the variables  prompt faceting by country, utilizing their previous familiarity with calculating proportions using the mutate() function, and by reiterating the importance an organized graph with the aes() function. 
 
 5. This step emphasizes the final step after visualization, interpretation of graphs. This step ensures that the student can draw conclusions from graphs and not just the code behind it. 
