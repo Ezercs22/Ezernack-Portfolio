@@ -307,7 +307,7 @@ Learning Community (2024). Tidy Tuesday: A weekly social data project.
 
 movies &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/movies.csv&#39;)</code></pre>
 <pre><code>## Rows: 36121 Columns: 8
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (5): source, report, title, available_globally, runtime
 ## dbl  (2): hours_viewed, views
@@ -317,7 +317,7 @@ movies &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascie
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>shows &lt;- readr::read_csv(&#39;https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-07-29/shows.csv&#39;)</code></pre>
 <pre><code>## Rows: 27803 Columns: 8
-## ── Column specification ────────────────────────────────────────────────────────
+## ── Column specification ────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (5): source, report, title, available_globally, runtime
 ## dbl  (2): hours_viewed, views
@@ -373,9 +373,9 @@ more opportunities to increase the amount of time people watch them.</p>
 release date for the most watched movies. That is, are the movies with
 more hours streamed more recent, or just the classics released
 earlier?</p>
-<pre class="r"><code>movies %&gt;% arrange(desc(hours_viewed)) %&gt;% ggplot(aes(x=release_date, y= hours_viewed)) + geom_point()</code></pre>
-<pre><code>## Warning: Removed 29396 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre class="r"><code>movies %&gt;% arrange(desc(hours_viewed)) %&gt;% ggplot(aes(x=release_date, y= hours_viewed)) + geom_point() + labs(title = &quot;Most Watched Movies by Date&quot;, x= &quot;Release Date&quot;, y = &quot;Hours Viewed&quot;)</code></pre>
+<pre><code>## Warning: Removed 29396 rows containing missing values or
+## values outside the scale range (`geom_point()`).</code></pre>
 <p><img src="p03_files/figure-html/mostviewedgraph-1.png" alt="" width="672" /></p>
 <p>According to this graph, the movies that came out recently in 2025
 have a very large amount of hours streamed in comparison to earlier
@@ -386,8 +386,8 @@ that are available globally. In the following plot I will color in
 points as red if the movie is not available globally, and I will color
 the points in green if the movie is available globally.</p>
 <pre class="r"><code>movies %&gt;% arrange(desc(hours_viewed)) %&gt;% ggplot(aes(x=release_date, y= hours_viewed, color = available_globally)) + geom_point() + labs(title = &quot;Most Watched Movies&quot;, subtitle = &quot;Distinguished by global availability&quot;,x= &quot;Release Date&quot;, y = &quot;Hours Viewed&quot;) + scale_color_manual(values = c(&quot;No&quot; = &quot;red&quot;, &quot;Yes&quot; = &quot;green&quot;))</code></pre>
-<pre><code>## Warning: Removed 29396 rows containing missing values or values outside the scale range
-## (`geom_point()`).</code></pre>
+<pre><code>## Warning: Removed 29396 rows containing missing values or
+## values outside the scale range (`geom_point()`).</code></pre>
 <p><img src="p03_files/figure-html/graphglobal-1.png" alt="" width="672" /></p>
 <p>Based on this plot, it is still very obvious that the movies that are
 most watched are also the ones that are available globally. However it
