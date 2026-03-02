@@ -2,6 +2,41 @@
 title: "Portfolio 5"
 ---
 
-> This portfolio piece will focus on my research paper titled "Priming Effects: Musical Context Influences on Prosocial Behavior". I created my own research study that includes procedures and methods, but I did not carry out this theoretical experiment. However I would like to create a hypothetical visualization that encapsulates my expected results. 
+> This portfolio piece will focus on my research paper titled "Priming Effects: Musical Context Influences on Prosocial Behavior". I created my own research study that includes procedures and methods, but I did not carry out this theoretical experiment. However, I would like to create a hypothetical visualization that encapsulates my expected results. The final result from this portfolio piece will be a visualization that is in line with my hypothesis.
+
+First I will install the tidyverse package in order to compete my visualization.
+
+```{r loadpackages}
+library(tidyverse)
+```
+### Study Set-Up
+My study is focused on how music has the power to implicitly prime groups to be more hostile. The procedure includes the experimental condition with two groups: a group who will listen to music with themes of exclusion, while the other listens to music with themes of pro-integration. Then, participants fill out the State Hostility Scale (SHS) after doing a unrelated distraction task. I am expecting that this direct manipulation of music will contribute to changes in the mean states of hostility. 
+
+My first hypothesis states that the exclusion music condition will have a higher mean level SHS score than the mean level SHS score for participants in the pro-integration music condition. 
 
 
+### Describing Visualization Plan
+For my visualization there will be a couple of variables to look at. The first being the mean level of SHS scores on the y-axis, and the experimental condition (exclusion/pro-integration) on the x-axis. So far, I think a box plot would be the best plan in creating a clear visualization. The SHS scale is from 0-5; hence, I want to visualize the mean of the exclusion group to be greater than the pro-integration group. 
+
+### Data Creation
+First, I will create a fake data set with two groups with different means. The number of my participants in my hypothetical study is 200, and setting the standard deviation to .5 allows the scale of 0-5 to be realistically set, and never fall below zero.  
+
+```{r fakedata}
+df <- data.frame(group = rep(letters[1:2], each = 1),
+  MeanSHSscore = rnorm(n = 200, mean = c(4, 1), sd = .5)
+)
+
+```
+
+This new data frame yields two groups. Group A will be the exclusion condition (higher mean level of state hostility), followed by Group B, the pro-integration (lower mean level of state hostility).
+
+### Data Visualization
+
+```{r fakedatavisual}
+df %>% ggplot(aes(x = group, y = MeanSHSscore, color = group)) + geom_boxplot() + labs(title = "Mean Levels of State Hostility Per Condition", subtitle = "Exclusion (a) vs Pro-integration Music Content (b)", x = "Music Condition Type", y = "Mean Level of SHS score", color = "Music Condition")
+
+```
+
+This visualization accurately depicts that I wanted. I am differentiating between two conditions, exclusion and pro-integration based on groups a and b. I was able to successfully achieve this goal by creating a fake data frame with my specified number of observations, two groups, and a set scale. After using a box plot and labs() function to add clarity, I am very satisfied in this visualization for my expected results. 
+
+The next portfolio piece will visualize my second hypothesis. 
