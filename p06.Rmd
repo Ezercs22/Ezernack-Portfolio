@@ -2,4 +2,18 @@
 title: "Portfolio 6"
 ---
 
-> The projects should be numbered consecutively (i.e., in the order in which you began them), and should include for each project a description of the goal, the product (computer program, hand graph, computer graph, etc.), the data, and some interpretation. Reports must be reproducible and of high quality in terms of writing, grammar, presentation, etc.
+> This portfolio piece is an extension of portfolio piece 5. I will be contributing to my previous work by creating a visualization of my second hypothesis. This portfolio will maintain the same goals and end result of portfolio 5, aiming to visualize the expected results from my research paper titled "Priming Effects: Musical Context Influences on Prosocial Behavior". 
+
+Again, I will begin by installing the tidyverse package in order to compete my visualization.
+
+```{r loadpackages}
+library(tidyverse)
+```
+
+As a refresher, my independent study is focused on how music has the power to implicitly prime groups to be more hostile. The procedure includes the experimental condition with two groups: a group who will listen to music with themes of exclusion, while the other listens to music with themes of pro-integration. Overall, I am interested in understanding whether music primes can implicity affect behavior. Participants were recruited and in exchange for their participation they are given $10 in compensation. At the end of my research study, I ask participants whether or not they would like to donate their $10 to a made-up social group on campus, DeaconRec. This part of the study is to assess prosocial behavior post-listening to different music contexts. 
+
+My second hypothesis I will focus on states that those in the exclusion music condition will donate less frequently to a social group than those in the pro-integration music condition. 
+
+### Describing Visualization Plan
+For this hypothesis the independent variable will be music condition (exclusion/pro-integration), and the dependent variable will be donation choice (yes/no). I want to count the amount of yes/no decisions per music condition and visualize this data. First I will have to make a fake data set. 
+### Data Creation
