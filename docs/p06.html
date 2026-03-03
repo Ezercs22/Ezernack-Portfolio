@@ -284,12 +284,80 @@ $(document).ready(function () {
 
 
 <blockquote>
-<p>The projects should be numbered consecutively (i.e., in the order in
-which you began them), and should include for each project a description
-of the goal, the product (computer program, hand graph, computer graph,
-etc.), the data, and some interpretation. Reports must be reproducible
-and of high quality in terms of writing, grammar, presentation, etc.</p>
+<p>This portfolio piece is an extension of portfolio piece 5. I will be
+contributing to my previous work by creating a visualization of my
+second hypothesis. This portfolio will maintain the same goals and end
+result of portfolio 5, aiming to visualize the expected results from my
+research paper titled “Priming Effects: Musical Context Influences on
+Prosocial Behavior”.</p>
 </blockquote>
+<p>Again, I will begin by installing the tidyverse package in order to
+compete my visualization.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.6
+## ✔ forcats   1.0.1     ✔ stringr   1.6.0
+## ✔ ggplot2   4.0.1     ✔ tibble    3.3.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.2
+## ✔ purrr     1.2.1     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<p>As a refresher, my independent study is focused on how music has the
+power to implicitly prime groups to be more hostile. The procedure
+includes the experimental condition with two groups: a group who will
+listen to music with themes of exclusion, while the other listens to
+music with themes of pro-integration. Overall, I am interested in
+understanding whether music primes can implicity affect behavior.
+Participants were recruited and in exchange for their participation they
+are given $10 in compensation. At the end of my research study, I ask
+participants whether or not they would like to donate their $10 to a
+made-up social group on campus, DeaconRec. This part of the study is to
+assess prosocial behavior post-listening to different music
+contexts.</p>
+<p>My second hypothesis I will focus on states that those in the
+exclusion music condition will donate less frequently to a social group
+than those in the pro-integration music condition.</p>
+<div id="describing-visualization-plan" class="section level3">
+<h3>Describing Visualization Plan</h3>
+<p>For this hypothesis the independent variable will be music condition
+(exclusion/pro-integration), and the dependent variable will be donation
+choice (yes/no). I want to count the amount of yes/no decisions per
+music condition and visualize this data. First I will have to make a
+fake data set. ### Data Creation</p>
+<p>I will be creating a fake data frame in order to set-up my hypothesis
+2 visualization. I created levels of decision choice in order to make up
+200 participants that are in my study.</p>
+<pre class="r"><code>df &lt;- data.frame(condition = factor(c(&quot;Exclusion&quot;, &quot;Exclusion&quot;, &quot;Pro-Integration&quot;,&quot;Pro-Integration&quot;)), donationchoice = factor(c(&quot;yes&quot;, &quot;no&quot;)), count = c(30, 60, 90, 20))
+
+df</code></pre>
+<pre><code>##         condition donationchoice count
+## 1       Exclusion            yes    30
+## 2       Exclusion             no    60
+## 3 Pro-Integration            yes    90
+## 4 Pro-Integration             no    20</code></pre>
+<p>Now I have verified that my data frame is correctly designed to match
+my hypothesis, I will continue to my visualization.</p>
+</div>
+<div id="data-visualization" class="section level3">
+<h3>Data Visualization</h3>
+<pre class="r"><code>df %&gt;% ggplot(aes(x = condition, y = count, fill = donationchoice)) + geom_col() + labs(title = &quot;Donation Choice Per Music Condition&quot;, x = &quot;Music Condition Type&quot;, y = &quot;Count of Donation Decision&quot;, fill = &quot;Donation Choice&quot;)</code></pre>
+<p><img src="p06_files/figure-html/fakedatavisualize-1.png" alt="" width="672" /></p>
+<p>Based on this visualization I successfully conveyed hypothesis 2. One
+can view based on the color differentiation that the exclusion music
+group showcased less frequent pro-social behavior of donating money.</p>
+</div>
+<div id="discussion" class="section level3">
+<h3>Discussion</h3>
+<p>I ran into a huge problem with visualizing this data… A TYPO! I
+incorrectly spelled “condition” when I first explicitly created the data
+frame. This led to many reworks in my code trying to understand the
+error of “can’t find object ‘condition’”. This challenge really led to
+me having to step away, and I was finally able to locate my error upon
+my return. This was a very simple reminder to slow down my coding
+process, and I believe that lesson is priceless!</p>
+</div>
 
 
 

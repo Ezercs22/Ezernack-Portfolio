@@ -15,5 +15,28 @@ As a refresher, my independent study is focused on how music has the power to im
 My second hypothesis I will focus on states that those in the exclusion music condition will donate less frequently to a social group than those in the pro-integration music condition. 
 
 ### Describing Visualization Plan
+
 For this hypothesis the independent variable will be music condition (exclusion/pro-integration), and the dependent variable will be donation choice (yes/no). I want to count the amount of yes/no decisions per music condition and visualize this data. First I will have to make a fake data set. 
 ### Data Creation
+
+I will be creating a fake data frame in order to set-up my hypothesis 2 visualization. I created levels of decision choice in order to make up 200 participants that are in my study. 
+
+```{r fakedata}
+
+df <- data.frame(condition = factor(c("Exclusion", "Exclusion", "Pro-Integration","Pro-Integration")), donationchoice = factor(c("yes", "no")), count = c(30, 60, 90, 20))
+
+df
+```
+Now I have verified that my data frame is correctly designed to match my hypothesis, I will continue to my visualization.
+
+### Data Visualization
+
+```{r fakedatavisualize}
+df %>% ggplot(aes(x = condition, y = count, fill = donationchoice)) + geom_col() + labs(title = "Donation Choice Per Music Condition", x = "Music Condition Type", y = "Count of Donation Decision", fill = "Donation Choice")
+
+```
+
+Based on this visualization I successfully conveyed hypothesis 2. One can view based on the color differentiation that the exclusion music group showcased less frequent pro-social behavior of donating money.
+
+### Discussion
+I ran into a huge problem with visualizing this data... A TYPO! I incorrectly spelled "condition" when I first explicitly created the data frame. This led to many reworks in my code trying to understand the error of "can't find object 'condition'". This challenge really led to me having to step away, and I was finally able to locate my error upon my return. This was a very simple reminder to slow down my coding process, and I believe that lesson is priceless! 
